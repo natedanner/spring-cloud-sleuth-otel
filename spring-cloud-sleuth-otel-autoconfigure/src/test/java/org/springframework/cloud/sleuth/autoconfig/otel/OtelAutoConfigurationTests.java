@@ -44,7 +44,7 @@ class OtelAutoConfigurationTests {
 
 	@Test
 	void shouldSupplyBeans() {
-		this.contextRunner.run((context) -> {
+		this.contextRunner.run(context -> {
 			assertThat(context).hasSingleBean(OpenTelemetry.class);
 			assertThat(context).hasSingleBean(SdkTracerProvider.class);
 			assertThat(context).hasSingleBean(SpanProcessorProvider.class);
@@ -58,7 +58,7 @@ class OtelAutoConfigurationTests {
 
 	@Test
 	void samplerIsParentBased() {
-		this.contextRunner.run((context) -> {
+		this.contextRunner.run(context -> {
 			Sampler sampler = context.getBean(Sampler.class);
 			assertThat(sampler).isNotNull();
 			assertThat(sampler.getDescription()).startsWith("ParentBased{");
@@ -67,7 +67,7 @@ class OtelAutoConfigurationTests {
 
 	@Test
 	void shouldNotSupplyBeansIfDependencyIsMissing() {
-		this.contextRunner.withClassLoader(new FilteredClassLoader("io.opentelemetry.api")).run((context) -> {
+		this.contextRunner.withClassLoader(new FilteredClassLoader("io.opentelemetry.api")).run(context -> {
 			assertThat(context).doesNotHaveBean(OpenTelemetry.class);
 			assertThat(context).doesNotHaveBean(SdkTracerProvider.class);
 			assertThat(context).doesNotHaveBean(SpanProcessorProvider.class);
@@ -81,7 +81,7 @@ class OtelAutoConfigurationTests {
 
 	@Test
 	void shouldBackOffOnCustomBeans() {
-		this.contextRunner.withUserConfiguration(CustomConfiguration.class).run((context) -> {
+		this.contextRunner.withUserConfiguration(CustomConfiguration.class).run(context -> {
 			assertThat(context).hasBean("customOpenTelemetry");
 			assertThat(context).hasSingleBean(OpenTelemetry.class);
 			assertThat(context).hasBean("customSdkTracerProvider");

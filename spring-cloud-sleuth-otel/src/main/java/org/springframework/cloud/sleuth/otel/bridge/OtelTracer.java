@@ -83,7 +83,7 @@ public class OtelTracer implements Tracer {
 		if (parent instanceof AssertingSpan) {
 			return AssertingSpan.unwrap(parent);
 		}
-		return ((OtelSpan) parent);
+		return (OtelSpan) parent;
 	}
 
 	@Override

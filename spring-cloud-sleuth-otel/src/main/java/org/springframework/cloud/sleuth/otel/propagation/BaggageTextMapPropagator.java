@@ -87,7 +87,7 @@ public class BaggageTextMapPropagator implements TextMapPropagator {
 	public <C> Context extract(Context context, C c, TextMapGetter<C> getter) {
 		Map<String, String> baggageEntries = this.remoteFields.stream()
 				.map(s -> new AbstractMap.SimpleEntry<>(s, getter.get(c, s))).filter(e -> e.getValue() != null)
-				.collect(Collectors.toMap((e) -> e.getKey(), (e) -> e.getValue()));
+				.collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
 		BaggageBuilder builder = Baggage.current().toBuilder();
 		baggageEntries
 				.forEach((key, value) -> builder.put(key, value, BaggageEntryMetadata.create(PROPAGATION_UNLIMITED)));

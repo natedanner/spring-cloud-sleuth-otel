@@ -152,7 +152,7 @@ public class OtelFinishedSpan implements FinishedSpan {
 
 	@Override
 	public Throwable getError() {
-		Attributes attributes = this.spanData.getEvents().stream().filter(e -> e.getName().equals("exception"))
+		Attributes attributes = this.spanData.getEvents().stream().filter(e -> "exception".equals(e.getName()))
 				.findFirst().map(EventData::getAttributes).orElse(null);
 		if (attributes != null) {
 			return new AssertingThrowable(attributes);

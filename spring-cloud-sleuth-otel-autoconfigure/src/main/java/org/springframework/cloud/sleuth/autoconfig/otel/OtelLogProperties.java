@@ -52,7 +52,7 @@ public class OtelLogProperties {
 		/**
 		 * Enable log exporter for OTel.
 		 */
-		private boolean enabled = false;
+		private boolean enabled;
 
 		public boolean isEnabled() {
 			return this.enabled;
